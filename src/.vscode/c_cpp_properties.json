@@ -1,0 +1,59 @@
+{
+    "configurations": [
+        {
+            "name": "STM32",
+            "intelliSenseMode": "clang-x64",
+            "includePath": [
+                "*/*",
+                "${workspaceRoot}/App",
+                "${workspaceRoot}/Core",
+                "${workspaceRoot}/startup",
+                "${workspaceRoot}/Drivers/STM32F1xx_HAL_Driver/Inc",
+                "${workspaceRoot}/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+                "${workspaceRoot}/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+                "${workspaceRoot}/Drivers/CMSIS/Include",
+                "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/lib/gcc/arm-none-eabi/7.3.1/include",
+                "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/lib/gcc/arm-none-eabi/7.3.1/include-fixed",
+                "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/arm-none-eabi/include",
+                "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/arm-none-eabi/include/sys",
+                "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/arm-none-eabi/include/machine",
+                "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/arm-none-eabi/include/newlib-nano",
+                "${workspaceRoot}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3",
+                "${workspaceRoot}/Middlewares/Third_Party/FreeRTOS/Source/include",
+                "${workspaceRoot}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS"
+            ],
+            "defines": [
+                "USE_HAL_DRIVER",
+                "STM32F103xB",
+                "ARM_MATH_CM3"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceRoot}",
+                    "${workspaceRoot}/App",
+                    "${workspaceRoot}/Core",
+                    "${workspaceRoot}/startup",
+                    "${workspaceRoot}/Drivers/STM32F1xx_HAL_Driver/Inc",
+                    "${workspaceRoot}/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+                    "${workspaceRoot}/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+                    "${workspaceRoot}/Drivers/CMSIS/Include",
+                    "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/lib/gcc/arm-none-eabi/7.3.1/include",
+                    "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/lib/gcc/arm-none-eabi/7.3.1/include-fixed",
+                    "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/arm-none-eabi/include",
+                    "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/arm-none-eabi/include/sys",
+                    "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/arm-none-eabi/include/machine",
+                    "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/arm-none-eabi/include/newlib-nano",
+                    "${workspaceRoot}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3",
+                    "${workspaceRoot}/Middlewares/Third_Party/FreeRTOS/Source/include",
+                    "${workspaceRoot}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceRoot}/.vscodecache/DB"
+            },
+            "compilerPath": "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/bin/arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb",
+            "configurationProvider": "vector-of-bool.cmake-tools",
+            "compileCommands": "${workspaceFolder}/build/compile_commands.json"
+        }
+    ],
+    "version": 4
+}

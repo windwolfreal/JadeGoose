@@ -1,0 +1,33 @@
+{
+    "files.associations": {
+        "stm32f1xx.h": "c",
+        "motor.h": "c",
+        "stdint.h": "c",
+        "*.tcc": "c",
+        "stm32f1xx_hal.h": "c",
+        "main.h": "c",
+        "i2c.h": "c",
+        "freertos.h": "c",
+        "cmsis_os.h": "c",
+        "task.h": "c",
+        "string_view": "c",
+        "core_bsp.h": "c",
+        "istream": "c",
+        "ostream": "c",
+        "system_error": "c",
+        "type_traits": "c",
+        "config.h": "c",
+        "initializer_list": "c",
+        "cstdint": "c",
+        "portable.h": "c",
+        "encoder.h": "c",
+        "math.h": "c",
+        "conf.h": "c",
+        "control.h": "c",
+        "stdlib.h": "c",
+        "arm_math.h": "c",
+        "core_cm3.h": "c",
+        "cmath": "c"
+    },
+    "cmake.configureOnOpen": true
+}

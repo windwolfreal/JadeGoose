@@ -1,0 +1,1 @@
+[{"node":"ADC1","expanded":true,"format":0},{"node":"NVIC","expanded":true,"format":0},{"node":"TIM1.SR","expanded":true,"format":0},{"node":"TIM1.EGR","expanded":true,"format":0},{"node":"TIM2.CCER","expanded":true,"format":0},{"node":"TIM2.CNT","expanded":true,"format":0},{"node":"TIM2.CNT.CNT","format":2},{"node":"TIM2.PSC","expanded":true,"format":0}]
