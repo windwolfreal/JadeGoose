@@ -1,0 +1,16 @@
+OpenWindow="Global Data", DockArea=RIGHT, x=0, y=1, w=536, h=250, FilterBarShown=1, 
+OpenWindow="Local Data", DockArea=RIGHT, x=0, y=1, w=536, h=250, FilterBarShown=0, 
+OpenWindow="Call Stack", DockArea=RIGHT, x=0, y=1, w=536, h=250, FilterBarShown=0, 
+OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=536, h=190, FilterBarShown=0, ExecCountersShown=0
+OpenWindow="Registers", DockArea=RIGHT, x=0, y=1, w=536, h=250, FilterBarShown=0, 
+OpenWindow="Console", DockArea=BOTTOM, x=1, y=0, w=951, h=527, FilterBarShown=0, 
+OpenWindow="Functions", DockArea=LEFT, x=0, y=0, w=327, h=457, FilterBarShown=1, 
+OpenWindow="Data Graph", DockArea=BOTTOM, x=0, y=0, w=881, h=527, FilterBarShown=0, 
+OpenToolbar="Debug", Floating=0, x=0, y=0
+TableHeader="Global Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Scope"], ColWidths=[203;94;94;58;300;203]
+TableHeader="Local Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Scope"], ColWidths=[58;94;94;58;58;174]
+TableHeader="Call Stack", SortCol="Function", SortOrder="ASCENDING", VisibleCols=["Function";"Stack Info";"Source"], ColWidths=[125;115;296]
+TableHeader="Registers", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[130;88;297]
+TableHeader="Functions", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Address";"Size";"#Insts";"Source"], ColWidths=[152;79;58;72;224]
+TableHeader="Data Graph Samples", SortCol="Index", SortOrder="ASCENDING", VisibleCols=["Index";"Time"], ColWidths=[10;630]
+TableHeader="Data Graph Setup", SortCol="Expression", SortOrder="DESCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[165;58;100;105;51;90;93;107;112]

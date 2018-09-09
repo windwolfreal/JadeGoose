@@ -11,6 +11,9 @@ typedef struct
 
 void LiteQueue_Create(LiteQueueTypeDef *queue, uint8_t maxsize);
 void LiteQueue_Append(LiteQueueTypeDef *queue, int32_t val);
-int32_t LiteQueue_Peek(LiteQueueTypeDef *queue);
+int32_t LiteQueue_Peek(LiteQueueTypeDef *queue, uint8_t index);
+
+void LiteQueue_Append_f(LiteQueueTypeDef *queue, float val);
+float LiteQueue_Peek_f(LiteQueueTypeDef *queue, uint8_t index);
 #endif
 

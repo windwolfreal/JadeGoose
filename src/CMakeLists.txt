@@ -38,7 +38,17 @@ add_definitions(-D__weak=__attribute__\(\(weak\)\) -D__packed=__attribute__\(\(_
 
 file(GLOB_RECURSE SOURCES "startup/*.*" "Middlewares/*.*" "Drivers/*.*" "App/*.*" "Core/*.*")
 
-include_directories(App Core Drivers/STM32F1xx_HAL_Driver/Inc Drivers/STM32F1xx_HAL_Driver/Inc/Legacy Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 Drivers/CMSIS/Device/ST/STM32F1xx/Include Middlewares/Third_Party/FreeRTOS/Source/include Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS Drivers/CMSIS/Include)
+include_directories(
+        App 
+        Core 
+        Drivers/CMSIS/Device/ST/STM32F1xx/Include
+        Drivers/STM32F1xx_HAL_Driver/Inc 
+        Drivers/STM32F1xx_HAL_Driver/Inc/Legacy 
+        Drivers/CMSIS/Include
+        Middlewares/Third_Party/FreeRTOS/Source/include
+        Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 
+        Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS 
+        )
 
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
 

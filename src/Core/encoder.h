@@ -10,14 +10,16 @@
 #define ENCODER_COUNT WHEEL_COUNT
 
 
-#define DECODER_PLUSE_DETECTION_BASE_FREQ 1000                                            // 编码探测采样频率
-#define DECODER_PLUSE_DETECTION__PRESCALER 20                                             // 编码探测分频数。
+#define DECODER_PLUSE_DETECTION_BASE_FREQ 10000                                            // 编码探测采样频率
+#define DECODER_PLUSE_DETECTION__PRESCALER 500                                             // 编码探测分频数。
 #define DECODER_PLUSE_DETECTION_FREQ (DECODER_PLUSE_DETECTION_BASE_FREQ / DECODER_PLUSE_DETECTION__PRESCALER) // 实际的编码探测频率 = 编码探测采样频率 / 分频数
 
 typedef struct
 {
-    LiteQueueTypeDef historyPulses; // 最近四次测得编码数，加上了overflow。
-    int32_t deltaPulse;             // 最近采样的编码数差
+    //LiteQueueTypeDef historyPulses; // 最近四次测得编码数，加上了overflow。
+    //LiteQueueTypeDef historyDeltaPulses; // 最近三次测得编码数的差。
+    int32_t lastPulse;
+    int32_t deltaPulse;
     int16_t pulseOverflow;          // 编码数溢出次数
     uint8_t inited;                 // 是否初始化
 } Encoder_StatusTypeDef;
@@ -33,5 +35,7 @@ Encoder_StatusTypeDef *Encoder_GetStatus(uint8_t no);
 void Encoder_Overflow(int8_t no);
 
 void Encoder_UpdatePulseHistory();
+
+void Encoder_UpdatePulseHistory_Callback();
 
 #endif

@@ -90,15 +90,22 @@ void StartDefaultTask(void const *argument);
 MPU6050_DataTypeDef data;
 /* USER CODE END 0 */
 
-/**
+uint8_t start;
+void Encoder_UpdatePulseHistory_Callback() {
+  if (start) {
+    Control_PidControl();
+  }
+}
+    /**
   * @brief  The application entry point.
   *
   * @retval None
   */
-int main(void)
+    int
+    main(void)
 {
   /* USER CODE BEGIN 1 */
-
+  start = 0;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -126,12 +133,13 @@ int main(void)
   // Motor_UpdateThrottle(1, 0.5);
   // Motor_UpdateThrottle(2, 0.5);
 
-  // Control_Init();
-  // Control_SetExpectLineSpeed(50);
-  // while(1) {
-  //   Control_PidControl();
-  //   BSP_DelayMs(10);
-  // }
+  Control_Init();
+  Control_SetExpectLineSpeed(50);
+  start = 1;
+  while(1) {
+    //Control_PidControl();
+    BSP_DelayMs(10);
+  }
 
   MPU6050_InitTypeDef mpu;
   mpu.clockSource = 3;
@@ -218,9 +226,9 @@ void SystemClock_Config(void)
   }
   LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
 
-  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_16);
+  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_2);
 
-  LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_16);
+  LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);
 
   LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_PLL);
 
@@ -234,10 +242,8 @@ void SystemClock_Config(void)
 
   LL_SetSystemCoreClock(72000000);
 
-  LL_RCC_SetADCClockSource(LL_RCC_ADC_CLKSRC_PCLK2_DIV_2);
-
   /* SysTick_IRQn interrupt configuration */
-  NVIC_SetPriority(SysTick_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 15, 0));
+  NVIC_SetPriority(SysTick_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
 }
 
 /* ADC1 init function */

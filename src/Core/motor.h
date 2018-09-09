@@ -8,8 +8,8 @@
 #include "conf.h"
 
 #define MOTOR_COUNT WHEEL_COUNT
-#define MOTOR_PWM_FREQ 1000               // PWM频率 hz
-#define MOTOR_PWM_TIM_CLOCK_FREQ 9000000 // TIM的输入时钟频率 hz
+#define MOTOR_PWM_FREQ 10000               // PWM频率 hz
+#define MOTOR_PWM_TIM_CLOCK_FREQ 72000000   // TIM的输入时钟频率 hz
 #define MOTIR_PWN_STEP 1000     // PWM步数，也是油门精度，在最大油门和最小油门之间分多少格。也是TIM的CNT
 
 

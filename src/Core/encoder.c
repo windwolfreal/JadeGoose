@@ -37,7 +37,7 @@ static void MX_TIM2_Init(void)
 
     LL_TIM_IC_SetFilter(TIM2, LL_TIM_CHANNEL_CH1, LL_TIM_IC_FILTER_FDIV1);
 
-    LL_TIM_IC_SetPolarity(TIM2, LL_TIM_CHANNEL_CH1, LL_TIM_IC_POLARITY_RISING);
+    LL_TIM_IC_SetPolarity(TIM2, LL_TIM_CHANNEL_CH1, LL_TIM_IC_POLARITY_FALLING);
 
     LL_TIM_IC_SetActiveInput(TIM2, LL_TIM_CHANNEL_CH2, LL_TIM_ACTIVEINPUT_DIRECTTI);
 
@@ -45,7 +45,7 @@ static void MX_TIM2_Init(void)
 
     LL_TIM_IC_SetFilter(TIM2, LL_TIM_CHANNEL_CH2, LL_TIM_IC_FILTER_FDIV1);
 
-    LL_TIM_IC_SetPolarity(TIM2, LL_TIM_CHANNEL_CH2, LL_TIM_IC_POLARITY_RISING);
+    LL_TIM_IC_SetPolarity(TIM2, LL_TIM_CHANNEL_CH2, LL_TIM_IC_POLARITY_FALLING);
 
     TIM_InitStruct.Prescaler = 8;
     TIM_InitStruct.CounterMode = LL_TIM_COUNTERMODE_UP;
@@ -123,17 +123,20 @@ static void MX_GPIO_Init(void)
     LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_GPIOA);
 }
 
-Encoder_StatusTypeDef *Encoder_GetStatus(uint8_t no) {
+Encoder_StatusTypeDef *Encoder_GetStatus(uint8_t no)
+{
     return &encoders[no - 1];
 }
 
-void Encoder_Init() {
+void Encoder_Init()
+{
 
     for (uint32_t i = 0; i < ENCODER_COUNT; i++)
     {
         Encoder_StatusTypeDef *encoder = &encoders[i];
-        LiteQueue_Create(&encoder->historyPulses, 4);
-        encoder->deltaPulse = 0;
+        //LiteQueue_Create(&(encoder->historyPulses), 4);
+        //LiteQueue_Create(&(encoder->historyDeltaPulses), 4);
+        encoder->lastPulse = 0;
         encoder->pulseOverflow = 0;
         encoder->inited = 1;
     }
@@ -180,6 +183,10 @@ void Encoder_Overflow(int8_t no)
     }
 }
 
+__weak void Encoder_UpdatePulseHistory_Callback()
+{
+}
+
 // 触发计算速度的中断和触发计算溢出的中断要报告同样的抢占优先级，以保证速度计算过程中，位移溢出值的完整性。
 void Encoder_UpdatePulseHistory()
 {
@@ -191,20 +198,28 @@ void Encoder_UpdatePulseHistory()
     }
     pdScalerCount = 0;
 
-    int32_t currentDisplacement;
-    int32_t lastDisplacement;
+    int32_t currentPulse;
+    int32_t lastPulse;
+    int32_t deltaPulse;
     if (encoders[0].inited)
     {
-        currentDisplacement = (encoders[0].pulseOverflow << 16) + TIM2->CNT;
-        lastDisplacement = LiteQueue_Peek(&encoders[0].historyPulses);
-        encoders[0].deltaPulse = currentDisplacement - lastDisplacement;
-        LiteQueue_Append(&encoders[0].historyPulses, currentDisplacement);
+        currentPulse = (encoders[0].pulseOverflow << 16) + TIM2->CNT;
+        //lastPulse = LiteQueue_Peek(&(encoders[0].historyPulses), 0);
+        encoders[0].deltaPulse = currentPulse - encoders[0].lastPulse;
+        encoders[0].lastPulse = currentPulse;
+        
+        //LiteQueue_Append(&(encoders[0].historyPulses), currentPulse);
+        //LiteQueue_Append(&(encoders[0].historyDeltaPulses), deltaPulse);
     }
     if (encoders[1].inited)
     {
-        currentDisplacement = (encoders[1].pulseOverflow << 16) + TIM3->CNT;
-        lastDisplacement = LiteQueue_Peek(&encoders[1].historyPulses);
-        encoders[1].deltaPulse = currentDisplacement - lastDisplacement;
-        LiteQueue_Append(&encoders[1].historyPulses, currentDisplacement);
+        currentPulse = (encoders[1].pulseOverflow << 16) + TIM3->CNT;
+        //lastPulse = LiteQueue_Peek(&(encoders[0].historyPulses), 0);
+        encoders[1].deltaPulse = currentPulse - encoders[1].lastPulse;
+        encoders[1].lastPulse = currentPulse;
+        // LiteQueue_Append(&(encoders[1].historyPulses), currentPulse);
+        // LiteQueue_Append(&(encoders[1].historyDeltaPulses), deltaPulse);
     }
+
+    Encoder_UpdatePulseHistory_Callback();
 }

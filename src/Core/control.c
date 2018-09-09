@@ -7,9 +7,12 @@
 
 Control_EncoderMotorStatusTypeDef encoderMotors[WHEEL_COUNT];
 
-static float P = 0.003f;
-static float I = 0.0f;
-static float D = 0.0f;
+#define P 0.001f
+#define I 0.0f
+#define D 0.0f
+#define INC_K0 (P + I + D)
+#define INC_K1 (-P - 2 * D)
+#define INC_K2 (D)
 
 void Control_Init()
 {
@@ -20,6 +23,7 @@ void Control_Init()
         Control_EncoderMotorStatusTypeDef *encoderMotor = &encoderMotors[i];
         encoderMotor->motor = Motor_GetStatus(i + 1);
         encoderMotor->encoder = Encoder_GetStatus(i + 1);
+        LiteQueue_Create(&(encoderMotor->errors), 3);
     }
 }
 
@@ -42,10 +46,15 @@ void Control_PidControl()
     for (int i = 0; i < WHEEL_COUNT; i++)
     {
         Control_EncoderMotorStatusTypeDef *encoderMotor = &encoderMotors[i];
-        float measuredLineSpeed = encoderMotor->encoder->deltaPulse * DECODER_PLUSE_DETECTION_FREQ / MOTOR_SPEED_FACTOR; // 测量线速
-        float err = encoderMotor->expectSpeed - measuredLineSpeed;                                                       // 线速误差
-        float throttle = encoderMotor->motor->throttle;                                                                  // 当前油门
-        throttle += P * err;                                                                                             //
+        float measuredLineSpeed = encoderMotor->encoder->deltaPulse * DECODER_PLUSE_DETECTION_FREQ / MOTOR_SPEED_FACTOR;  // 测量线速
+        float e0 = encoderMotor->expectSpeed - measuredLineSpeed;                                                         // 线速误差
+        LiteQueue_Append_f(&(encoderMotor->errors), e0);
+        float e1 = LiteQueue_Peek(&(encoderMotor->errors), 1);
+        float e2 = LiteQueue_Peek(&(encoderMotor->errors), 2);
+        float delta = INC_K0 * e0 + INC_K1 * e1 + INC_K2 * e2;
+        encoderMotor->delta = delta;
+        float throttle = encoderMotor->motor->throttle;                        // 当前油门
+        throttle += delta; //
         if (throttle > 1.0f)
         {
             throttle = 1.0f;

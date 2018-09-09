@@ -20,6 +20,8 @@ typedef struct {
     Motor_StatusTypeDef *motor;
     Encoder_StatusTypeDef *encoder;
     float expectSpeed; // 期望的最终线速;
+    LiteQueueTypeDef errors;
+    float delta;
 } Control_EncoderMotorStatusTypeDef;
 
 void Control_Init();
